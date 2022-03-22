@@ -47,7 +47,7 @@ module RichEnums
       symbol_value_string = column_symbol_value_string_options.delete(column)
       # at this point, only the enum options like _prefix etc. are present in the original argument
       options = column_symbol_value_string_options
-      # we allow for an option called alt: to allow the users to tag the alternate mapping. Defaults to 'name'
+      # we allow for an option called alt: to allow the users to tag the alternate mapping. Defaults to 'alt_name'
       alt = options.delete(:alt) || 'alt_name'
 
       # create two hashes from the provided input - 1 to be used to define the enum and the other for the name map
