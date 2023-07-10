@@ -9,7 +9,7 @@ module RichEnums
 
   module ClassMethods
     def rich_enum(column_symbol_value_string_options)
-      # rich_enum  column1: { symbol1: [value1, string1], ... }, **options
+      # rich_enum  column1: { symbol1: [value1, string1], ... }, alt: 'name', **options
       # will transform to
       # 1. enum column1: { symbol1: value1, ...}, to define the enums along with any options provided
       # and
@@ -17,7 +17,7 @@ module RichEnums
       # and can be accessed by ClassName.<column>_names which will return a hash like { symbol1: string1, symbol2: string2 ...}
       # e.g.
       # class Enrollment
-      #  include EnumMappable
+      #  include RichEnums
       #  rich_enum learner_payment_path: {
       #     greenfig_online: [10, 'GreenFig Online'],
       #     partner: [20, 'Partner'],
