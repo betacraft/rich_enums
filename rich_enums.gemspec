@@ -6,13 +6,17 @@ Gem::Specification.new do |spec|
   spec.authors       = %w[harunkumars rtdp]
   spec.email         = %w[harun@betacraft.io rtdp@betacraft.io]
 
-  spec.summary       = 'Provides a rich_enum class method to include String descriptions during Enum definitions'
-  # spec.description   = 'TODO: Write a longer description or delete this line.'
+  spec.summary       = 'When a simple name to value mapping is not enough'
+  spec.description   = <<-DESC
+With Enums we are able to map a label to a value on the database. 
+Use Rich Enum if you need to maintain an additional mapping at the point of enum definition, 
+for e.g. for presentation purposes or for mapping to a different value on a different system.
+DESC
   spec.homepage      = 'https://github.com/betacraft/rich_enums'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
-  # spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/betacraft/rich_enums'

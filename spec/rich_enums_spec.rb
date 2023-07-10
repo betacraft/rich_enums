@@ -4,6 +4,7 @@ RSpec.describe RichEnums do
   end
 
   it "does something useful" do
+    # TODO write tests
     expect(false).to eq(true)
   end
 end
