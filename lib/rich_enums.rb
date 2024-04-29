@@ -38,22 +38,30 @@ module RichEnums
       # e.learner_payment_path_name --> "P.O. / Check" -> our custom method that returns the string/description
       # TODO: explore if enum options in Array format instead of Hash format will need to be handled
 
-      raise 'rich_enum error' unless column_symbol_value_string_options.keys.count.positive?
+      unless column_symbol_value_string_options.is_a? Hash
+        raise RichEnums::Error
+      end
+      if column_symbol_value_string_options.keys.count.zero?
+        raise RichEnums::Error
+      end
 
       # extract out the column
       column = column_symbol_value_string_options.keys.first
 
       # extract the Enum options for the column which may be in standard enum hash format or our custom format
       symbol_value_string = column_symbol_value_string_options.delete(column)
+
+      raise RichEnums::Error unless symbol_value_string.is_a? Hash
+
       # at this point, only the enum options like _prefix etc. are present in the original argument
       options = column_symbol_value_string_options
       # we allow for an option called alt: to allow the users to tag the alternate mapping. Defaults to 'alt_name'
-      alt = options.delete(:alt) || 'alt_name'
+      alt = options.delete(:alt).to_s || 'alt_name'
 
       # create two hashes from the provided input - 1 to be used to define the enum and the other for the name map
       split_hash = symbol_value_string.each_with_object({ for_enum: {}, for_display: {} }) do |(symbol, value_string), obj|
-        obj[:for_enum][symbol] = value_string.is_a?(Array) ? value_string.first : value_string
-        obj[:for_display][symbol.to_s] = value_string.is_a?(Array) ? value_string.second : symbol.to_s
+        obj[:for_enum][symbol] = value_string.is_a?(Array) ? value_string[0] : value_string
+        obj[:for_display][symbol.to_s] = value_string.is_a?(Array) ? value_string[1] : symbol.to_s
       end
 
       # 1. Define the Enum

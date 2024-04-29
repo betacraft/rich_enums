@@ -22,6 +22,9 @@ DESC
   spec.metadata['source_code_uri'] = 'https://github.com/betacraft/rich_enums'
   spec.metadata['changelog_uri'] = 'https://github.com/betacraft/rich_enums/README.md'
 
+  spec.add_development_dependency 'sqlite3', '~> 1.4'
+  spec.add_development_dependency 'temping', '~> 4.1'
+  spec.add_runtime_dependency 'activerecord', '>= 6.1', '< 8.0'
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
