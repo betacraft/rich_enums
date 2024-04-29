@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "rich_enums"
+require "temping"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -10,5 +11,16 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:all) do
+    ActiveRecord::Base.establish_connection(
+      adapter: "sqlite3",
+      database: ":memory:"
+    )
+  end
+
+  config.after do
+    Temping.teardown
   end
 end
