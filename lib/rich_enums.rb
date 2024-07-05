@@ -15,6 +15,8 @@ module RichEnums
       # and
       # 2. Class method "column1_names" that will map the enum values to the full String description
       # and can be accessed by ClassName.<column>_names which will return a hash like { symbol1: string1, symbol2: string2 ...}
+      # 3. Class method "column1_alt_name_to_ids" will map the enum values the string values and can
+      # be accessed by ClassName.<column>_alt_name_to_ids which will return a hash like { string1: value1, string2: value2 ...}
       # e.g.
       # class Enrollment
       #  include RichEnums
@@ -31,6 +33,9 @@ module RichEnums
       # Calling learner_payment_path_names returns
       # {"greenfig_online"=>"GreenFig Online", "partner"=>"Partner", "partner_online"=>"Partner Online",
       # "po_check"=>"P.O. / Check", "other"=>"Other"}
+      # iii. a class method called learner_payment_path_alt_name_to_ids
+      # Calling learner_payment_path_alt_name_to_ids returns
+      # {"GreenFig Online"=>10, "Partner"=>20, "Partner Online"=>30, "P.O. / Check"=>40, "Other"=>100}
       # 3. Instance method "column1_name" will return the String associated with the enum value
       # e = Enrollment.new
       # e.learner_payment_path_po_check! -> normal enum method to update the object with enum value
@@ -57,21 +62,29 @@ module RichEnums
       options = column_symbol_value_string_options
       # we allow for an option called alt: to allow the users to tag the alternate mapping. Defaults to 'alt_name'
       alt = options.delete(:alt).to_s || 'alt_name'
+      alt_map_method = 'alt_name_to_ids'
 
       # create two hashes from the provided input - 1 to be used to define the enum and the other for the name map
-      split_hash = symbol_value_string.each_with_object({ for_enum: {}, for_display: {} }) do |(symbol, value_string), obj|
-        obj[:for_enum][symbol] = value_string.is_a?(Array) ? value_string[0] : value_string
-        obj[:for_display][symbol.to_s] = value_string.is_a?(Array) ? value_string[1] : symbol.to_s
+      split_hash = symbol_value_string.each_with_object({ for_enum: {}, for_display: {}, for_filter: {} }) do |(symbol, value_string), obj|
+        value = value_string.is_a?(Array) ? value_string.first : value_string
+        display_string = value_string.is_a?(Array) ? value_string.second : symbol.to_s
+
+        obj[:for_enum][symbol] = value
+        obj[:for_display][symbol.to_s] = display_string
+        obj[:for_filter][display_string] = value
       end
 
       # 1. Define the Enum
       enum "#{column}": split_hash[:for_enum], **options
 
-      # 2. Define our custom class method
-      # - the data to be returned by our custom method is available os a class instance variable
+      # 2. Define our custom class methods
+      # - the data to be returned by our custom methods is available as a class instance variable
       instance_variable_set("@#{column}_#{alt.pluralize}", split_hash[:for_display])
-      # - the custom method is just a getter for the class instance variable
+      instance_variable_set("@#{column}_#{alt_map_method}", split_hash[:for_filter])
+
+      # - the custom methods are just a getter for the class instance variables
       define_singleton_method("#{column}_#{alt.pluralize}") { instance_variable_get("@#{column}_#{alt.pluralize}") }
+      define_singleton_method("#{column}_#{alt_map_method}") { instance_variable_get("@#{column}_#{alt_map_method}") }
 
       # 3. Define our custom instance method to show the String associated with the enum value
       define_method("#{column}_#{alt}") { self.class.send("#{column}_#{alt.pluralize}")[send(column.to_s)] }

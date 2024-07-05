@@ -145,5 +145,29 @@ RSpec.describe RichEnums do
         expect(test_instance.status_name).to eq("NOT_LIVE")
       end
     end
+
+    context "alternate name to ID mapping" do
+      let(:test_class) do
+        Temping.create(:test_class) do
+          with_columns do |t|
+            t.integer :status
+          end
+
+          include RichEnums
+          rich_enum status: {
+            active: [0, 'LIVE'],
+            inactive: [1, 'NOT_LIVE']
+          }, alt: 'name'
+        end
+      end
+
+      it "returns correct mapping of alternate names to enum values" do
+        expected_mapping = {
+          "LIVE" => 0,
+          "NOT_LIVE" => 1
+        }
+        expect(test_class.status_alt_name_to_ids).to eq(expected_mapping)
+      end
+    end
   end
 end

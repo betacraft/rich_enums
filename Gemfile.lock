@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rich_enums (0.1.4)
+    rich_enums (0.1.5)
       activerecord (>= 6.1, < 8.0)
 
 GEM
