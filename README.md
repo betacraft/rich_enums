@@ -17,6 +17,7 @@ user.role_code # => 'ROLE001'
 user.role_for_database # => 1
 User.roles # => {"admin"=>1, "user"=>2}
 User.role_codes # => {"admin"=>"ROLE001", "user"=>"ROLE101"}
+User.role_alt_name_to_ids # => {"ROLE001"=>1, "ROLE101"=>2}
 
 ```
 
@@ -61,6 +62,7 @@ user.role_alt_name # => 'ROLE001'
 user.role_for_database # => 1
 User.roles # => {"admin"=>1, "user"=>2}
 User.role_alt_names # => {"admin"=>"ROLE001", "user"=>"ROLE101"}
+User.role_alt_name_to_ids # => {"ROLE001"=>1, "ROLE101"=>2}
 ExternalSystem.sync(user.external_id, role_code: user.role_alt_name)
 ```
 Any arguments other than 'alt' are forwarded to the default enum definition.
