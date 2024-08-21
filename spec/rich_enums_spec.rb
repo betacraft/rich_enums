@@ -50,6 +50,7 @@ RSpec.describe RichEnums do
 
           course_class.rich_enum status: { active: 0, inactive: 1 }, alt: :name
           expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
         end
 
         it "invokes the enum method with the correct arguments" do
@@ -57,6 +58,7 @@ RSpec.describe RichEnums do
 
           course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, alt: :name
           expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
         end
 
         it "invokes the enum method with the correct arguments" do
@@ -64,6 +66,7 @@ RSpec.describe RichEnums do
           course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, prefix: true, alt: 'state'
 
           expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 }, prefix: true)
+          expect(course_class.defined_enums).to include("status")
         end
       else
         it "invokes the enum method with the correct arguments" do
@@ -71,6 +74,7 @@ RSpec.describe RichEnums do
 
           course_class.rich_enum status: { active: 0, inactive: 1 }, alt: :name
           expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
         end
 
         it "invokes the enum method with the correct arguments" do
@@ -78,6 +82,7 @@ RSpec.describe RichEnums do
 
           course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, alt: :name
           expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
         end
 
         it "invokes the enum method with the correct arguments" do
@@ -85,6 +90,7 @@ RSpec.describe RichEnums do
           course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, _prefix: true, alt: 'state'
 
           expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 }, _prefix: true)
+          expect(course_class.defined_enums).to include("status")
         end
       end
     end
