@@ -75,7 +75,11 @@ module RichEnums
       end
 
       # 1. Define the Enum
-      enum "#{column}": split_hash[:for_enum], **options
+      if Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('7.2')
+        enum column, split_hash[:for_enum], **options
+      else
+        enum "#{column}": split_hash[:for_enum], **options
+      end
 
       # 2. Define our custom class methods
       # - the data to be returned by our custom methods is available as a class instance variable

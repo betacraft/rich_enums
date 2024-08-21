@@ -44,29 +44,54 @@ RSpec.describe RichEnums do
         end
       end
 
-      it "invokes the enum method with the correct arguments" do
-        allow(course_class).to receive(:enum).and_call_original
+      if Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('7.2')
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
 
-        course_class.rich_enum status: { active: 0, inactive: 1 }, alt: :name
-        # it passes only the necessary arguments to the enum method, stripping out the alt: option
-        expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
-      end
+          course_class.rich_enum status: { active: 0, inactive: 1 }, alt: :name
+          expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
+        end
 
-      it "invokes the enum method with the correct arguments" do
-        allow(course_class).to receive(:enum).and_call_original
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
 
-        course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, alt: :name
-        # it passes only the necessary arguments to the enum method,
-        # stripping out the alternate names LIVE and NOT_LIVE and the alt: option
-        expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
-      end
+          course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, alt: :name
+          expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
+        end
 
-      it "invokes the enum method with the correct arguments" do
-        allow(course_class).to receive(:enum).and_call_original
-        course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, _prefix: true, alt: 'state'
-        # it passes only the necessary arguments to the enum method,
-        # stripping out the alternate names LIVE and NOT_LIVE and the alt: option
-        expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 }, _prefix: true)
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
+          course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, prefix: true, alt: 'state'
+
+          expect(course_class).to have_received(:enum).with(:status, { active: 0, inactive: 1 }, prefix: true)
+          expect(course_class.defined_enums).to include("status")
+        end
+      else
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
+
+          course_class.rich_enum status: { active: 0, inactive: 1 }, alt: :name
+          expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
+        end
+
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
+
+          course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, alt: :name
+          expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 })
+          expect(course_class.defined_enums).to include("status")
+        end
+
+        it "invokes the enum method with the correct arguments" do
+          allow(course_class).to receive(:enum).and_call_original
+          course_class.rich_enum status: { active: [0, 'LIVE'], inactive: [1, 'NOT_LIVE'] }, _prefix: true, alt: 'state'
+
+          expect(course_class).to have_received(:enum).with(status: { active: 0, inactive: 1 }, _prefix: true)
+          expect(course_class.defined_enums).to include("status")
+        end
       end
     end
 
