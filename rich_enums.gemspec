@@ -22,7 +22,7 @@ DESC
   spec.metadata['source_code_uri'] = 'https://github.com/betacraft/rich_enums'
   spec.metadata['changelog_uri'] = 'https://github.com/betacraft/rich_enums/README.md'
 
-  spec.add_development_dependency 'sqlite3', '~> 1.4'
+  spec.add_development_dependency 'sqlite3', '>= 1.4', '< 3.0'
   spec.add_development_dependency 'temping', '~> 4.1'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.0'

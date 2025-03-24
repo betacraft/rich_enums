@@ -51,8 +51,16 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.2)
     securerandom (0.4.1)
+    sqlite3 (2.6.0-aarch64-linux-gnu)
+    sqlite3 (2.6.0-aarch64-linux-musl)
+    sqlite3 (2.6.0-arm-linux-gnu)
+    sqlite3 (2.6.0-arm-linux-musl)
     sqlite3 (2.6.0-arm64-darwin)
+    sqlite3 (2.6.0-x86-linux-gnu)
+    sqlite3 (2.6.0-x86-linux-musl)
     sqlite3 (2.6.0-x86_64-darwin)
+    sqlite3 (2.6.0-x86_64-linux-gnu)
+    sqlite3 (2.6.0-x86_64-linux-musl)
     temping (4.3.0)
       activerecord (>= 6.0, < 8.1)
       activesupport (>= 6.0, < 8.1)
@@ -61,12 +69,19 @@ GEM
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
-  arm64-darwin-23
-  arm64-darwin-24
-  x86_64-darwin-21
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
-  activerecord (~> 7.1)
+  activerecord (~> 7.0)
   benchmark (~> 0.1)
   logger (~> 1.6)
   rake (~> 12.0)
@@ -76,4 +91,4 @@ DEPENDENCIES
   temping (~> 4.1)
 
 BUNDLED WITH
-   2.5.16
+   2.6.5
