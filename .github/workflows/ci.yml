@@ -3,6 +3,7 @@ env:
 
 name: RichEnums CI
 on:
+  workflow_dispatch:
   pull_request:
     paths-ignore:
       - .gitignore
@@ -23,6 +24,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - ruby: '3.4'
+            rails: '8.0'
           - ruby: '3.3'
             rails: '7.2'
           - ruby: '3.2'
