@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     rich_enums (0.1.5)
       activerecord (>= 7.0, < 9.0)
@@ -7,13 +7,13 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (8.0.2)
-      activesupport (= 8.0.2)
-    activerecord (8.0.2)
-      activemodel (= 8.0.2)
-      activesupport (= 8.0.2)
+    activemodel (7.2.2.1)
+      activesupport (= 7.2.2.1)
+    activerecord (7.2.2.1)
+      activemodel (= 7.2.2.1)
+      activesupport (= 7.2.2.1)
       timeout (>= 0.4.0)
-    activesupport (8.0.2)
+    activesupport (7.2.2.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -25,7 +25,6 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-      uri (>= 0.13.1)
     base64 (0.2.0)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
@@ -36,7 +35,6 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     logger (1.6.6)
-    mini_portile2 (2.8.8)
     minitest (5.25.5)
     rake (12.3.3)
     rspec (3.13.0)
@@ -53,21 +51,37 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.2)
     securerandom (0.4.1)
-    sqlite3 (2.6.0)
-      mini_portile2 (~> 2.8.0)
+    sqlite3 (2.6.0-aarch64-linux-gnu)
+    sqlite3 (2.6.0-aarch64-linux-musl)
+    sqlite3 (2.6.0-arm-linux-gnu)
+    sqlite3 (2.6.0-arm-linux-musl)
+    sqlite3 (2.6.0-arm64-darwin)
+    sqlite3 (2.6.0-x86-linux-gnu)
+    sqlite3 (2.6.0-x86-linux-musl)
+    sqlite3 (2.6.0-x86_64-darwin)
+    sqlite3 (2.6.0-x86_64-linux-gnu)
+    sqlite3 (2.6.0-x86_64-linux-musl)
     temping (4.3.0)
       activerecord (>= 6.0, < 8.1)
       activesupport (>= 6.0, < 8.1)
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.3)
 
 PLATFORMS
-  ruby
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
-  benchmark (~> 0.1)
+  activerecord (~> 7.0)
   logger (~> 1.6)
   rake (~> 12.0)
   rich_enums!
@@ -76,4 +90,4 @@ DEPENDENCIES
   temping (~> 4.1)
 
 BUNDLED WITH
-   2.4.15
+   2.6.5
