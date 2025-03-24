@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rich_enums (0.1.5)
+    rich_enums (0.2.0)
       activerecord (>= 7.0, < 9.0)
 
 GEM
@@ -67,7 +67,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  benchmark (~> 0.1)
   logger (~> 1.6)
   rake (~> 12.0)
   rich_enums!
