@@ -24,6 +24,8 @@ DESC
 
   spec.add_development_dependency 'sqlite3', '~> 1.4'
   spec.add_development_dependency 'temping', '~> 4.1'
+  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_runtime_dependency 'activerecord', '>= 6.1', '< 9.0'
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
